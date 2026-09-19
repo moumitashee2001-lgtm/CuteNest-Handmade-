@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CuteNest Handmade</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#fff7f5;color:#4b2d2a}
+.app{max-width:430px;margin:auto;min-height:100vh;background:#fff}
+header{padding:16px 18px 10px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #f4dddd}
+.logo{font-weight:800;font-size:22px;color:#6b3934}.tag{font-size:11px;color:#a86b68}
+.icons{font-size:22px}
+.hero{margin:14px;border-radius:22px;background:linear-gradient(135deg,#ffe5e7,#fff2df);padding:22px;text-align:center}
+.hero h1{margin:0 0 7px;font-size:27px}.hero p{margin:0 0 15px}.btn{border:0;border-radius:22px;background:#df6680;color:#fff;padding:11px 20px;font-weight:700}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 14px}.cat{background:#fff0f1;border-radius:16px;padding:12px 4px;text-align:center;font-size:12px}.cat b{display:block;font-size:24px;margin-bottom:5px}
+h2{font-size:18px;margin:20px 16px 10px}.products{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px 90px}.card{border:1px solid #f2dddd;border-radius:18px;padding:9px;background:#fff}.pic{height:145px;border-radius:14px;background:linear-gradient(135deg,#ffd8df,#f8eadb);display:flex;align-items:center;justify-content:center;font-size:58px}.card h3{font-size:14px;margin:9px 2px 5px}.price{font-weight:800;color:#d14f6d}.add{width:100%;margin-top:8px;padding:9px;border:0;border-radius:13px;background:#f3a0b2;color:#fff;font-weight:700}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);display:flex;justify-content:space-around;background:#fff;border-top:1px solid #f0dddd;padding:10px 4px;z-index:4}nav button{border:0;background:none;color:#7b5a57;font-size:11px}nav span{display:block;font-size:21px;margin-bottom:2px}
+#toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#4b2d2a;color:#fff;padding:10px 16px;border-radius:20px;display:none;font-size:13px}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><div class="logo">🎀 CuteNest</div><div class="tag">Little Things, Made with Love</div></div><div class="icons">♡ 🛒</div></header>
+<section class="hero"><h1>Handmade Hair Clips</h1><p>For Baby & Ladies 🌸</p><button class="btn" onclick="document.getElementById('products').scrollIntoView()">Shop Now</button></section>
+<div class="cats">
+<div class="cat" onclick="filter('Baby')"><b>👶</b>Baby</div>
+<div class="cat" onclick="filter('Ladies')"><b>🎀</b>Ladies</div>
+<div class="cat" onclick="filter('Combo')"><b>🎁</b>Combo</div>
+<div class="cat" onclick="filter('New')"><b>✨</b>New</div>
+</div>
+<h2 id="heading">Popular Products</h2>
+<div class="products" id="products"></div>
+<nav><button onclick="topPage()"><span>⌂</span>Home</button><button onclick="document.getElementById('products').scrollIntoView()"><span>▦</span>Products</button><button onclick="showCart()"><span>🛍</span>Cart</button><button onclick="showOrders()"><span>♡</span>Wishlist</button><button onclick="showProfile()"><span>♙</span>Profile</button></nav>
+<div id="toast"></div>
+</div>
+<script>
+const data=[
+{name:"Bunny Baby Clip (2 Pcs)",price:69,cat:"Baby",emoji:"🐰🎀"},
+{name:"Satin Bow Clip (2 Pcs)",price:79,cat:"Ladies",emoji:"🎀"},
+{name:"Flower Clip (2 Pcs)",price:99,cat:"Ladies",emoji:"🌸"},
+{name:"Pearl Hair Clip (1 Pc)",price:99,cat:"Ladies",emoji:"🤍"},
+{name:"Cute Baby Flower Clip",price:59,cat:"Baby",emoji:"🌼"},
+{name:"Baby Premium Combo",price:129,cat:"Combo",emoji:"🎁"},
+{name:"Stone Elegant Clip",price:129,cat:"New",emoji:"✨"},
+{name:"Pink Bow Combo",price:199,cat:"Combo",emoji:"💗"}
+];
+let cart=0;
+function render(items=data){document.getElementById("products").innerHTML=items.map((p,i)=>`<div class="card"><div class="pic">${p.emoji}</div><h3>${p.name}</h3><div class="price">₹${p.price}</div><button class="add" onclick="add(${i})">Add to Cart</button></div>`).join("")}
+function add(i){cart++;toast("🛒 Cart-এ যোগ হয়েছে");}
+function filter(c){document.getElementById("heading").textContent=c+" Collection";render(data.filter(x=>x.cat===c))}
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.style.display="block";setTimeout(()=>x.style.display="none",1500)}
+function showCart(){toast("🛒 আপনার Cart-এ "+cart+"টি item")}
+function showOrders(){toast("♡ Wishlist শীঘ্রই আসছে")}
+function showProfile(){toast("♙ Profile section শীঘ্রই আসছে")}
+function topPage(){window.scrollTo({top:0,behavior:"smooth"})}
+render();
+</script>
+</body>
+</html>
